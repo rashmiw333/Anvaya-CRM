@@ -19,9 +19,20 @@ function EditLeadForm({ lead, agents, onClose }) {
     lead.timeToClose
   );
 
+
+  const [tags, setTags] = useState(
+    lead.tags
+  );
+
+  setTags
   async function handleUpdate(e) {
 
     e.preventDefault();
+
+     if (!Number.isInteger(Number(timeToClose)) ||Number(timeToClose) <= 0) {
+       toast.error("Time to Close must be a positive integer.");
+       return;
+      }
 
     try {
 
@@ -38,7 +49,8 @@ function EditLeadForm({ lead, agents, onClose }) {
             status,
             salesAgent,
             priority,
-            timeToClose
+            timeToClose,
+            tags
           })
         }
       );
@@ -170,6 +182,8 @@ function EditLeadForm({ lead, agents, onClose }) {
             type="number"
             className="form-control"
             value={timeToClose}
+            min="1"
+            step="1"
             onChange={(e) =>
               setTimeToClose(e.target.value)
             }
@@ -177,9 +191,29 @@ function EditLeadForm({ lead, agents, onClose }) {
 
         </div>
 
+        {/* Tags */}
+
+        <div>
+          <label className="form-label">
+          Tags
+        </label>
+
+        <input
+          type="text"
+          className="form-control"
+          value={tags.join(", ")}
+          onChange={(e) =>
+          setTags(e.target.value.split(",")
+                .map((tag) => tag.trim())
+                .filter(Boolean)
+            )
+          }
+        />
+        </div>
+
         <button
           type="button"
-          className="btn btn-primary me-2"
+          className="btn btn-primary me-2 mt-2"
           onClick={handleUpdate}
         >
           Save Changes

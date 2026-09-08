@@ -48,6 +48,11 @@ function LeadForm() {
 
     e.preventDefault();
 
+    if (!Number.isInteger(Number(timeToClose)) ||Number(timeToClose) <= 0) {
+       toast.error("Time to Close must be a positive integer.");
+       return;
+      }
+
     try {
 
       const response = await fetch(
@@ -256,7 +261,9 @@ function LeadForm() {
             <input
               type="number"
               className="form-control"
-              value={timeToClose}
+               value={timeToClose}
+               min="1"
+               step="1"
               onChange={(e) =>
               setTimeToClose(e.target.value)
               }

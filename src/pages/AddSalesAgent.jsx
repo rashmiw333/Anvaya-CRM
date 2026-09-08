@@ -31,24 +31,25 @@ function AddSalesAgent() {
         }
       );
 
+
+      const data = await response.json();
+
+       console.log("Status:", response.status);
+       console.log("Response:", data);
+
       if (!response.ok) {
-        throw new Error("Failed to create sales agent");
+          throw new Error(data.error || "Failed to create sales agent");
       }
 
-      toast.success("Sales agent created successfully");
-
-      navigate("/sales-agents");
+     toast.success("Sales agent created successfully");
+     navigate("/sales-agents");
 
     } catch (error) {
-
-      console.log(
-        "Failed to create sales agent:",
-        error
-      );
-
-      toast.error("Failed to create sales agent");
-
+        console.log("Failed to create sales agent:", error);
+         toast.error(error.message);
     }
+
+    
   }
 
   return (

@@ -86,7 +86,12 @@ function Reports() {
         data: [
           closedData.totalClosedLeads,
           pipelineData.totalLeadsInPipeline
-        ]
+        ],
+
+         backgroundColor: [
+        "#4CAF50",
+        "#2196F3"
+      ]
       }
     ]
   };
@@ -97,7 +102,11 @@ function Reports() {
     datasets: [
       {
         label: "Closed Leads",
-        data: Object.values(agentData)
+        data: Object.values(agentData),
+
+        backgroundColor: [
+        "#c8cdc8ec"
+      ]
       }
     ]
   };
@@ -107,7 +116,15 @@ function Reports() {
     labels: Object.keys(statusData),
     datasets: [
       {
-        data: Object.values(statusData)
+        data: Object.values(statusData),
+
+        backgroundColor: [
+        "#4CAF50",
+        "#2196F3",
+        "#FFC107",
+        "#FF5722",
+        "#9C27B0"
+      ]
       }
     ]
   };

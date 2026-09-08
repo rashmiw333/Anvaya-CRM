@@ -14,9 +14,45 @@ body {
   background-color: #212529;
   color: white;
   flex-shrink: 0;
+  transition: 0.3s;
+}
+
+.sidebar.open {
+  width: 230px;
+}
+
+.sidebar.closed {
+  width: 0;
+  padding: 0 !important;
+  overflow: hidden;
 }
 
 .main-content {
   flex: 1;
   padding: 30px;
+}
+
+.sidebar-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 5px;
+
+  background-color: #0d6efd;
+  color: white;
+
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.sidebar h3 {
+  white-space: nowrap;
+  font-size: 24px;
+  margin-left: 50px;
 }

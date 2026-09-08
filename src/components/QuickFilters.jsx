@@ -8,7 +8,7 @@ function QuickFilters({ selectedStatus, onStatusChange }) {
   ];
   return (
     <div className="card shadow-sm mt-4">
-      <div className="card-body">
+      <div className="card-body d-flex flex-wrap gap-2">
 
         <h5 className="mb-3">
           Quick Filters

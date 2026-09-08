@@ -83,24 +83,23 @@ function LeadList() {
               Lead Overview
             </h3>
 
-            {filteredLeads.map((lead) => (
+          {filteredLeads.length === 0 ? (
 
-              <div
-                key={lead._id}
-                className="border-bottom py-3"
-              >
-                <strong>
-                  {lead.name}
-                </strong>
-                {" - "}
-                {lead.status}
-                {" - "}
-                {lead.salesAgent?.name || "Unassigned"}
+            <p className="text-muted">
+                No leads found.
+            </p>) : (
+
+            filteredLeads.map((lead) => (
+              <div key={lead._id}
+                  className="border-bottom py-3">
+                   <strong>{lead.name}</strong>
+                    {" - "} {lead.status} {" - "}
+                    {lead.salesAgent?.name || "Unassigned"}
               </div>
+                ))
 
-            ))}
-
-          </div>
+                )}
+              </div>
 
         </div>
 
