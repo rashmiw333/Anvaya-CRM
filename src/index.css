@@ -8,6 +8,7 @@ body {
   min-height: 100vh;
 }
 
+/* Sidebar */
 .sidebar {
   width: 230px;
   min-height: 100vh;
@@ -27,16 +28,19 @@ body {
   overflow: hidden;
 }
 
+/* Main content */
 .main-content {
   flex: 1;
+  min-width: 0;
   padding: 30px;
 }
 
+/* Toggle button */
 .sidebar-toggle {
   position: fixed;
   top: 15px;
   left: 15px;
-  z-index: 1000;
+  z-index: 1100;
 
   width: 40px;
   height: 40px;
@@ -55,4 +59,63 @@ body {
   white-space: nowrap;
   font-size: 24px;
   margin-left: 50px;
+}
+
+
+
+   /* Mobile Screen */
+  
+
+@media (max-width: 768px) {
+
+  .dashboard-layout {
+    display: block;
+  }
+
+  /* Sidebar becomes an overlay */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 230px;
+    height: 100vh;
+    min-height: 100vh;
+
+    z-index: 1050;
+
+    overflow-y: auto;
+  }
+
+  .sidebar.open {
+    width: 230px;
+  }
+
+  .sidebar.closed {
+    width: 0;
+    padding: 0 !important;
+    overflow: hidden;
+  }
+
+  /*complete screen */
+  .main-content {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    padding: 70px 15px 20px;
+  }
+
+  /* Toggle remains above */
+  .sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+  }
+
+  .sidebar h3 {
+    font-size: 20px;
+    margin-left: 50px;
+  }
 }

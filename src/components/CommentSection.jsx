@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { toast } from "react-toastify";
 
 function CommentSection({ leadId }) {
-
   // Get comments
   const {
-    data: comments,
+    data: fetchedComments,
     loading,
     error
   } = useFetch(
-    `https://anvaya-backend-omega.vercel.app/api/leads/${leadId}/comments`
+    `http://localhost:3000/api/leads/${leadId}/comments`
   );
 
   // Get sales agents
@@ -18,31 +17,41 @@ function CommentSection({ leadId }) {
     data: agents,
     loading: agentsLoading
   } = useFetch(
-    "https://anvaya-backend-omega.vercel.app/api/agents"
+    "http://localhost:3000/api/agents"
   );
+
+  // Local comments state
+  const [comments, setComments] = useState([]);
 
   const [commentText, setCommentText] = useState("");
   const [selectedAgent, setSelectedAgent] = useState("");
   const [addingComment, setAddingComment] = useState(false);
 
-  async function handleAddComment() {
+  // Set fetched comments into local state
+  useEffect(() => {
+    if (Array.isArray(fetchedComments)) {
+      setComments(fetchedComments);
+    }
+  }, [fetchedComments]);
 
+  async function handleAddComment() {
+    // Validate agent
     if (!selectedAgent) {
-      toast.success("Please select a sales agent.");
+      toast.error("Please select a sales agent.");
       return;
     }
 
+    // Validate comment
     if (!commentText.trim()) {
       toast.warning("Please enter a comment.");
       return;
     }
 
     try {
-
       setAddingComment(true);
 
       const response = await fetch(
-        `https://anvaya-backend-omega.vercel.app/api/leads/${leadId}/comments`,
+        `http://localhost:3000/api/leads/${leadId}/comments`,
         {
           method: "POST",
 
@@ -61,20 +70,28 @@ function CommentSection({ leadId }) {
         throw new Error("Failed to add comment");
       }
 
+      // Get newly created comment
+      const newComment = await response.json();
+
+      // Add new comment immediately
+      setComments((prevComments) => [
+        ...prevComments,
+        newComment
+      ]);
+
+      // Clear form
       setCommentText("");
       setSelectedAgent("");
 
-      window.location.reload();
+      toast.success("Comment added successfully");
 
     } catch (error) {
-
       console.log("Failed to add comment", error);
+
       toast.error("Failed to add comment.");
 
     } finally {
-
       setAddingComment(false);
-
     }
   }
 
@@ -112,7 +129,7 @@ function CommentSection({ leadId }) {
             >
 
               <strong>
-                {comment.author}
+                {comment.author?.name || comment.author}
               </strong>
 
               <small className="text-muted ms-2">
@@ -141,7 +158,7 @@ function CommentSection({ leadId }) {
           className="form-select"
           value={selectedAgent}
           onChange={(e) =>
-        setSelectedAgent(e.target.value)
+            setSelectedAgent(e.target.value)
           }
         >
 

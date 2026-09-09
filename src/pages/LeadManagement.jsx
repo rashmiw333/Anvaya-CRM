@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useParams} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
 import LeadDetails from "../components/LeadDetails";
@@ -9,19 +9,27 @@ import EditLeadForm from "../components/EditLeadForm";
 import useFetch from "../hooks/useFetch";
 
 function LeadManagement() {
-
   const { id } = useParams();
 
   const [editing, setEditing] = useState(false);
 
   // Get Lead
   const {
-    data: lead,
+    data: fetchedLead,
     loading: leadLoading,
     error: leadError
   } = useFetch(
     `https://anvaya-backend-omega.vercel.app/api/leads/${id}`
   );
+
+  //local copy of lead
+  const [lead, setLead] = useState(null);
+
+  useEffect(() => {
+    if (fetchedLead) {
+      setLead(fetchedLead);
+    }
+  }, [fetchedLead]);
 
   // Get Sales Agents
   const {
@@ -31,7 +39,7 @@ function LeadManagement() {
     "https://anvaya-backend-omega.vercel.app/api/agents"
   );
 
-  if (leadLoading || agentsLoading) {
+  if (leadLoading || agentsLoading || !lead) {
     return <h4 className="p-4">Loading...</h4>;
   }
 
@@ -66,7 +74,13 @@ function LeadManagement() {
           <EditLeadForm
             lead={lead}
             agents={agents}
-            onClose={() => setEditing(false)}
+            onClose={(updatedLead) => {
+              if (updatedLead) {
+                setLead(updatedLead);
+              }
+
+              setEditing(false);
+            }}
           />
 
         )}

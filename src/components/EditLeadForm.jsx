@@ -21,10 +21,9 @@ function EditLeadForm({ lead, agents, onClose }) {
 
 
   const [tags, setTags] = useState(
-    lead.tags
+  lead.tags.join(", ")
   );
 
-  setTags
   async function handleUpdate(e) {
 
     e.preventDefault();
@@ -50,7 +49,7 @@ function EditLeadForm({ lead, agents, onClose }) {
             salesAgent,
             priority,
             timeToClose,
-            tags
+             tags: tags.split(",").map((tag) => tag.trim()).filter(Boolean)
           })
         }
       );
@@ -59,9 +58,11 @@ function EditLeadForm({ lead, agents, onClose }) {
         throw new Error("Failed to update lead");
       }
 
+      const updatedLead = await response.json();
+
       toast.success("Lead updated successfully");
 
-      onClose();
+      onClose(updatedLead.lead);
 
 
     } catch (error) {
@@ -198,18 +199,14 @@ function EditLeadForm({ lead, agents, onClose }) {
           Tags
         </label>
 
-        <input
-          type="text"
-          className="form-control"
-          value={tags.join(", ")}
-          onChange={(e) =>
-          setTags(e.target.value.split(",")
-                .map((tag) => tag.trim())
-                .filter(Boolean)
-            )
-          }
-        />
-        </div>
+       <input type="text"
+        className="form-control"
+        value={tags}
+        onChange={(e) => setTags(e.target.value)}
+       />
+
+        <small className="text-muted">Separate tags with commas</small>
+      </div>
 
         <button
           type="button"
