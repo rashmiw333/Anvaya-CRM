@@ -61,6 +61,26 @@ body {
   margin-left: 50px;
 }
 
+.quick-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Reports charts */
+
+.report-chart {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+
+.pie-chart {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  height: 300px;
+}
 
 
    /* Mobile Screen */
@@ -118,4 +138,14 @@ body {
     font-size: 20px;
     margin-left: 50px;
   }
+
+  .report-chart {
+    height: 280px;
+  }
+
+  .pie-chart {
+    height: 260px;
+    max-width: 100%;
+  }
+
 }

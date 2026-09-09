@@ -148,8 +148,10 @@ function Reports() {
             Total Leads Closed and in Pipeline
           </h3>
 
-          <div style={{ maxWidth: "450px" }}>
-            <Pie data={closedPipelineData} />
+          <div className="pie-chart">
+            <Pie data={closedPipelineData}
+             options={{responsive: true,maintainAspectRatio: false}}
+            />
           </div>
 
         </div>
@@ -163,7 +165,13 @@ function Reports() {
             Leads Closed by Sales Agent
           </h3>
 
-          <Bar data={agentChartData} />
+          <div className="report-chart">
+
+           <Bar data={agentChartData}
+            options={{responsive: true,maintainAspectRatio: false}}
+           />
+
+           </div>
 
         </div>
 
@@ -176,8 +184,10 @@ function Reports() {
             Lead Status Distribution
           </h3>
 
-          <div style={{ maxWidth: "450px" }}>
-            <Pie data={statusChartData} />
+          <div className="pie-chart">
+            <Pie data={statusChartData}
+             options={{responsive: true,maintainAspectRatio: false}}
+            />
           </div>
 
         </div>

@@ -14,7 +14,8 @@ function QuickFilters({ selectedStatus, onStatusChange }) {
           Quick Filters
         </h5>
 
-             {statuses.map((status) => (
+        <div className="quick-filter-buttons">
+          {statuses.map((status) => (
 
           <button
             key={status}
@@ -29,6 +30,8 @@ function QuickFilters({ selectedStatus, onStatusChange }) {
           </button>
 
         ))}
+
+         </div>
 
       </div>
     </div>
