@@ -9,7 +9,7 @@ function CommentSection({ leadId }) {
     loading,
     error
   } = useFetch(
-    `http://localhost:3000/api/leads/${leadId}/comments`
+    `https://anvaya-backend-omega.vercel.app/api/leads/${leadId}/comments`
   );
 
   // Get sales agents
@@ -17,7 +17,7 @@ function CommentSection({ leadId }) {
     data: agents,
     loading: agentsLoading
   } = useFetch(
-    "http://localhost:3000/api/agents"
+    "https://anvaya-backend-omega.vercel.app/api/agents"
   );
 
   // Local comments state
@@ -51,7 +51,7 @@ function CommentSection({ leadId }) {
       setAddingComment(true);
 
       const response = await fetch(
-        `http://localhost:3000/api/leads/${leadId}/comments`,
+        `https://anvaya-backend-omega.vercel.app/api/leads/${leadId}/comments`,
         {
           method: "POST",
 
