@@ -305,7 +305,7 @@ database operations.
  Repository
 
  Frontend
-(https://github.com/rashmiw333/Anvaya-FrontEnd)
+(https://github.com/rashmiw333/Anvaya-CRM)
 
  Backend
 (https://github.com/rashmiw333/Anvaya_Backend)
